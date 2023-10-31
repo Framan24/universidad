@@ -56,7 +56,6 @@
                         <span class="flex-1 ml-3 whitespace-nowrap">Cerrar Sesion</span>
                     </a>
                 </li>
-
             </ul>
         </div>
     </aside>

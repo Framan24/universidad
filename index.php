@@ -27,6 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
             case '/c-clases':
                 $clases->CrearClases();
                 break;
+                case '/e-materia':
+                    $clases->Editarmateria();
+                    break;
         case '/e-estudiante':
             $cstudiante->EditarStudiante();
             break;
@@ -73,7 +76,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             case '/crearMateria':
                 $clases->crearMateria($_POST);
                 break;
-
+                case '/editarmateria':
+                    $clases->Editarmateria1($_POST);
+                    break;
         case '/editarestudiante':
             $cstudiante->editarEstudiante($_POST);
             break;
@@ -92,6 +97,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $cmaestro->eliminarMaestro($dnimaestro);
             }
             break;
+            case '/borrarclase':
+                if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                    $idclase = $_POST['id'];
+                    $clases->borrarclase($idclase);
+                }
+                break;
         default:
             echo "Página no encontrada";
             break;

@@ -20,7 +20,7 @@ class StudentController
         $resultado = $studentModel->createStudent($nombre, $correo, $password, $role, $dni, $apellido, $direccion);
         if ($resultado) {
             // Éxito: el estudiante se creó correctamente
-            header('Location: /exitostudiante');
+            header('Location: /alumno');
             exit;
         } else {
         }

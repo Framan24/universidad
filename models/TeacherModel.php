@@ -46,6 +46,16 @@ class TeacherModel
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getAllAmaestros2($dni) {
+        $sql = "SELECT m.*, c.clase AS clase 
+                FROM maestros AS m
+                INNER JOIN materia AS c ON m.clase_id = c.id
+                WHERE m.dni = :dni";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':dni', $dni);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
 
     public function eliminarMaestro($dni) {

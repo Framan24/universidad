@@ -18,7 +18,7 @@ class TeacherController {
         $resultado = $Teachermodel->createTeacher($nombre, $correo, $password, $role,$dni,$apellido,$direccion);
         if ($resultado) {
             // Éxito: el estudiante se creó correctamente
-            header('Location: /exitosmaestro');
+            header('Location: /maestro');
             exit;
         } else {
        
@@ -52,6 +52,10 @@ class TeacherController {
         include $_SERVER['DOCUMENT_ROOT']. "/views/maestros/maestro.php";
     }
     public function OnMaestro(){
+        extract($_SESSION['user']);
+        $database = new Database();
+        $Teachermodel = new TeacherModel($database);
+        $teacher = $Teachermodel->getAllAmaestros2($dni);
         include $_SERVER['DOCUMENT_ROOT']. "/views/maestros/onmaestro.php";
     }
 }

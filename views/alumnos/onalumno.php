@@ -71,7 +71,7 @@
                             Direccion
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Acciones
+                            clase
                         </th>
                     </tr>
                 </thead>
@@ -97,13 +97,7 @@
                                 <?php echo $student['direccion']; ?>
                             </td>
                             <td class="px-6 py-4">
-                                <a href="/e-estudiante" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                            <td class="px-6 py-4">
-                                <form action="/eliminar-estudiante" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar a este estudiante?')">
-                                    <input type="hidden" name="dni" value="<?php echo $student['dni']; ?>">
-                                    <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
-                                </form>
+                            <?php echo $student['clase']; ?>
                             </td>
                     </tr>
                 <?php endforeach; ?>

@@ -54,14 +54,21 @@ class StudentModel
 
     public function getAllStudents2($dni)
     {
-        $sql = "SELECT * FROM alumnos WHERE dni = $dni";
-        $stmt = $this->db->query($sql);
+        $sql = "SELECT a.*, m.clase AS clase
+        FROM alumnos AS a
+        INNER JOIN materia AS m ON a.materia_id = m.id
+        WHERE a.dni = :dni";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':dni', $dni);
+        $stmt->execute();
+
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-   
 
-    public function eliminarEstudiante($dni) {
+
+    public function eliminarEstudiante($dni)
+    {
         $sql1 = "DELETE FROM usuarios WHERE dni = :dni";
         $sql2 = "DELETE FROM alumnos WHERE dni = :dni";
 
@@ -78,7 +85,8 @@ class StudentModel
         // Devolver true si ambas sentencias se ejecutan con éxito
         return $stmt1->execute() && $stmt2->execute();
     }
-    public function editarstudent($dni, $nombre, $apellido, $correo, $direccion,$rol_id) {
+    public function editarstudent($dni, $nombre, $apellido, $correo, $direccion, $rol_id)
+    {
         // Actualizar la tabla de usuarios
         $sql1 = "UPDATE usuarios SET  correo = :correo,rol_id = :rol_id WHERE dni = :dni";
         $stmt1 = $this->db->prepare($sql1);
