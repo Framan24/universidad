@@ -1,11 +1,11 @@
 <?php
 class UserModel {
-    public static function getUserByUsername($username) {
+    public static function getUserByUsername($correo) {
         $pdo = new PDO("mysql:host=localhost;dbname=universidad", "root", "");
 
-        $sql = "SELECT * FROM usuarios WHERE nombre = :username";
+        $sql = "SELECT * FROM usuarios WHERE correo = :correo";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':correo', $correo, PDO::PARAM_STR);
         $stmt->execute();
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);

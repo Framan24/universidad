@@ -3,7 +3,7 @@
 
 <head>
     <link href="/dist/output.css" rel="stylesheet">
-    <title>Panel de Administración</title>
+    <title>Panel de Maestros</title>
 </head>
 
 <body>
@@ -45,7 +45,7 @@
                             <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
                         </svg>
                         <span class="flex-1 ml-3 whitespace-nowrap">Materias</span>
-                       
+                        
                     </a>
                 </li>
                 <li>
@@ -64,13 +64,71 @@
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <div class="">
-                <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+                <div class="flex items-center justify-between h-24 rounded bg-gray-50 dark:bg-gray-800">
                     <p class="text-2xl text-gray-400 dark:text-gray-500">
-                        Dashboard <br />
-                        Bienvenido seleciona la accion que quieras en las pestañas de la izquierda
+                        Lista de Maestros <br />
+
                     </p>
+                    <a class="text-2xl text-gray-400 dark:text-gray-500" href="/c-maestro">Crear</a>
                 </div>
             </div>
+        </div>
+        <br>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            DNI
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Nombre
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Apellido
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Correo
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Direccion
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                        <?php foreach ($teacher as $teacher) : ?>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <?php echo $teacher['dni']; ?>
+                            </th>
+                            <td class="px-6 py-4">
+                                <?php echo $teacher['nombre']; ?>
+                            </td>
+                            <td class="px-6 py-4">
+                                <?php echo $teacher['apellido']; ?>
+                            </td>
+                            <td class="px-6 py-4">
+                                <?php echo $teacher['correo']; ?>
+                            </td>
+                            <td class="px-6 py-4">
+                                <?php echo $teacher['direccion']; ?>
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            </td>
+                            <td class="px-6 py-4">
+                                <form action="/eliminar-maestro" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar a este estudiante?')">
+                                    <input type="hidden" name="dni" value="<?php echo $teacher['dni']; ?>">
+                                    <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                                </form>
+                            </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 

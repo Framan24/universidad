@@ -1,30 +1,57 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT']. "/models/TeacherModel.php");
+require_once './config/database.php';
+
 class TeacherController {
-    private $db;
 
-    public function __construct($database) {
-        $this->db = $database;
-    }
 
-    public function createTeacher($data) {
-        // Validación adicional de los datos (asegúrate de realizar una validación adecuada)
-
-        // Obtener el rol del formulario
-        $role = $data['role'];
-
-        // Crear una instancia del modelo TeacherModel
-        $teacherModel = new TeacherModel($this->db);
-
-        // Llamar al método createTeacher del modelo para crear la cuenta del maestro
-        $success = $teacherModel->createTeacher($data['name'], $data['email'], $role);
-
-        if ($success) {
-            // Redirigir a una página de éxito o mostrar un mensaje de confirmación
-            header('Location: ./views/maestros/success_teacher.php');
+    public function crearcuentam($data) {
+        $nombre = $data['nombre'];
+        $apellido =$data['apellido'];
+        $correo = $data['correo'];
+        $password = $data['password'];
+        $dni = $data['dni'];
+        $direccion =$data['direccion'];
+        $role = 2; 
+        $database = new Database(); 
+        $Teachermodel = new TeacherModel($database);
+        $resultado = $Teachermodel->createTeacher($nombre, $correo, $password, $role,$dni,$apellido,$direccion);
+        if ($resultado) {
+            // Éxito: el estudiante se creó correctamente
+            header('Location: /exitosmaestro');
+            exit;
         } else {
-            // Redirigir a una página de error o mostrar un mensaje de error
-            header('Location: error_page.php');
+       
         }
     }
-}
+    public function eliminarMaestro()
+    {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $dniMaestro = $_POST['dni'];
+            $database = new Database();
+            $Teachermodel = new TeacherModel($database);
+            if ($Teachermodel->eliminarMaestro($dniMaestro)) {
+                header('Location: /maestro');
+                exit;
+            } else {
+                echo "Error al eliminar al estudiante.";
+            }
+        }
+    }
 
+    public function  createTeacher(){
+        include $_SERVER['DOCUMENT_ROOT']. "/views/maestros/create_teacher_view.php";
+    }
+    public function MaestroCreado(){
+        include $_SERVER['DOCUMENT_ROOT']. "/views/maestros/success_teacher.php";
+    }
+    public function ListaMaestro(){
+        $database = new Database();
+        $Teachermodel = new TeacherModel($database);
+        $teacher = $Teachermodel->getAllAmaestros();
+        include $_SERVER['DOCUMENT_ROOT']. "/views/maestros/maestro.php";
+    }
+    public function OnMaestro(){
+        include $_SERVER['DOCUMENT_ROOT']. "/views/maestros/onmaestro.php";
+    }
+}
